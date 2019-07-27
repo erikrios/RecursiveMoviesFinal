@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FavoriteDetailsActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_favorite_detail_poster"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="ContentDescription"
+            tools:src="@android:color/holo_purple" />
+
+
+        <TextView
+            android:id="@+id/tv_favorite_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/img_favorite_detail_poster"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_favorite_detail_poster"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="@string/app_name" />
+
+
+        <Button
+            android:id="@+id/btn_favorite_detail_release_date"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/details_bg"
+            android:drawableTop="@drawable/ic_date_range_black_24dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/btn_detail_vote_count"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_favorite_detail_title"
+            tools:text="2019 - 12 - 8" />
+
+        <Button
+            android:id="@+id/btn_detail_vote_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/details_bg"
+            android:drawableTop="@drawable/ic_supervisor_account_black_24dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_favorite_detail_overview"
+            app:layout_constraintRight_toLeftOf="@id/btn_detail_vote_average"
+            app:layout_constraintStart_toStartOf="@id/btn_favorite_detail_release_date"
+            app:layout_constraintTop_toBottomOf="@id/btn_favorite_detail_release_date"
+            tools:text="956" />
+
+        <com.github.ivbaranov.mfb.MaterialFavoriteButton
+            android:id="@+id/btn_favorite"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/details_bg"
+            app:layout_constraintBottom_toTopOf="@id/tv_favorite_detail_overview"
+            app:layout_constraintLeft_toRightOf="@id/btn_detail_vote_average"
+            app:layout_constraintRight_toLeftOf="@id/btn_detail_vote_count"
+            app:layout_constraintTop_toBottomOf="@id/btn_favorite_detail_release_date" />
+
+        <Button
+            android:id="@+id/btn_detail_vote_average"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/details_bg"
+            android:drawableTop="@drawable/ic_star_black_24dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_favorite_detail_overview"
+            app:layout_constraintEnd_toEndOf="@id/btn_favorite_detail_release_date"
+            app:layout_constraintLeft_toRightOf="@id/btn_detail_vote_count"
+            app:layout_constraintTop_toBottomOf="@id/btn_favorite_detail_release_date"
+            tools:text="9.5" />
+
+        <TextView
+            android:id="@+id/tv_favorite_detail_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:lineSpacingMultiplier="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_detail_vote_average"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="@string/lorem_ipsum" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

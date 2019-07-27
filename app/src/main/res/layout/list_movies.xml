@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="@android:color/holo_blue_light"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="8dp"
+        app:contentPadding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:elevation="1dp"
+            android:src="@android:color/black"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/img_list_poster_movie"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@android:color/holo_blue_light"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription"
+            tools:src="@android:color/holo_purple" />
+
+        <TextView
+            android:id="@+id/tv_list_vote_average_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="15dp"
+            android:background="@drawable/title_bg"
+            android:drawableStart="@drawable/ic_star_white_24dp"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="9.5" />
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_list_title_movie"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/title_bg"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/card_view"
+        app:layout_constraintEnd_toEndOf="@id/card_view"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/card_view"
+        tools:text="@string/app_name" />
+
+</android.support.constraint.ConstraintLayout>

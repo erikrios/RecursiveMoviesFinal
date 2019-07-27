@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Recursive Film</string>
+    <string name="nav_movies">Film</string>
+    <string name="nav_tv_shows">Acara TV</string>
+    <string name="lorem_ipsum">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed tempor dan vitalitas, sehingga tenaga kerja dan kesedihan, beberapa hal penting yang harus dilakukan eiusmod. Selama bertahun-tahun, aku akan datang, yang akan nostrud aliquip keluar dari dirinya keuntungan dari latihan, sehingga upaya stimulus jika distrik sekolah dan umur panjang. Ingin menjadi sakit di cillum cupidatat telah dikritik di duis et dolore magna melarikan diri tidak menghasilkan kesenangan. Kulit hitam cupidatat Excepteur tidak excepteur, yang menenangkan jiwa, yaitu, mereka meninggalkan tugas umum mereka yang harus disalahkan untuk masalah Anda."</string>
+    <string name="load_data">Memuat Data, mohon tunggu....</string>
+    <string name="progress_title">Memuat</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="change_language_settings">Ubah Pengaturan Bahasa</string>
+    <string name="nav_favorite">Favorit</string>
+    <string name="add_favorite">Ditambahkan ke Favorit</string>
+    <string name="removed_favorite">Dihapus dari Favorit</string>
+</resources>
