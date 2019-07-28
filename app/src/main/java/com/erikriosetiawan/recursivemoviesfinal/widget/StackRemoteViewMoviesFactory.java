@@ -90,7 +90,7 @@ public class StackRemoteViewMoviesFactory implements RemoteViewsService.RemoteVi
                         .submit(512, 512)
                         .get();
 
-                rv.setImageViewBitmap(R.id.img_item, bitmap);
+                rv.setImageViewBitmap(R.id.img_movie_item, bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -102,7 +102,7 @@ public class StackRemoteViewMoviesFactory implements RemoteViewsService.RemoteVi
         Intent fillIntent = new Intent();
         fillIntent.putExtras(extras);
 
-        rv.setOnClickFillInIntent(R.id.img_item, fillIntent);
+        rv.setOnClickFillInIntent(R.id.img_movie_item, fillIntent);
         return rv;
     }
 
