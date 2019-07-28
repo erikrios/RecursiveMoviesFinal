@@ -75,7 +75,7 @@ public class StackRemoteViewTvShowsFactory implements RemoteViewsService.RemoteV
 
     @Override
     public int getCount() {
-        return 0;
+        return favoriteTvShow.size();
     }
 
     @Override
