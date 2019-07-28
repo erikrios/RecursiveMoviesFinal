@@ -90,7 +90,7 @@ public class StackRemoteViewTvShowsFactory implements RemoteViewsService.RemoteV
                         .submit(512, 512)
                         .get();
 
-                rv.setImageViewBitmap(R.id.img_movie_item, bitmap);
+                rv.setImageViewBitmap(R.id.img_tv_show_item, bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
             }
