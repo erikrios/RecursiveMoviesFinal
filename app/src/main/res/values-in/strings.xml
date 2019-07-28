@@ -13,4 +13,5 @@
     <string name="removed_favorite">Dihapus dari Favorit</string>
     <string name="search_hint">Pencarian</string>
     <string name="empty_text">Tidak Ada Data</string>
+    <string name="favorite_movies">Film Favorit</string>
 </resources>

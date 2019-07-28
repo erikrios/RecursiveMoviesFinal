@@ -29,7 +29,7 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:text="@string/nav_movies" />
+            android:text="@string/favorite_movies" />
     </LinearLayout>
 
     <TextView
