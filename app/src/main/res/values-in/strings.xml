@@ -11,4 +11,6 @@
     <string name="nav_favorite">Favorit</string>
     <string name="add_favorite">Ditambahkan ke Favorit</string>
     <string name="removed_favorite">Dihapus dari Favorit</string>
+    <string name="search_hint">Pencarian</string>
+    <string name="empty_text">Tidak Ada Data</string>
 </resources>
