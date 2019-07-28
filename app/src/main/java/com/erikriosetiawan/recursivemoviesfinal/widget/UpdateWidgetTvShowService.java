@@ -6,17 +6,17 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 
-public class UpdateWidgetMovieService extends JobService {
+public class UpdateWidgetTvShowService extends JobService {
     @Override
     public boolean onStartJob(JobParameters params) {
-        Intent intent = new Intent(this, FavoriteMovieWidget.class);
+        Intent intent = new Intent(this, FavoriteTvShowWidget.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
 
         int[] ids = AppWidgetManager.getInstance(getApplication())
-                .getAppWidgetIds(new ComponentName(getApplication(), FavoriteMovieWidget.class));
+                .getAppWidgetIds(new ComponentName(getApplication(), FavoriteTvShowWidget.class));
 
-        FavoriteMovieWidget favoriteMovieWidget = new FavoriteMovieWidget();
-        favoriteMovieWidget.onUpdate(this, AppWidgetManager.getInstance(this), ids);
+        FavoriteTvShowWidget favoriteTvShowWidget = new FavoriteTvShowWidget();
+        favoriteTvShowWidget.onUpdate(this, AppWidgetManager.getInstance(this), ids);
         jobFinished(params, false);
         return true;
     }

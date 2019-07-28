@@ -22,10 +22,12 @@ import com.erikriosetiawan.recursivemoviesfinal.fragments.FavoritesFragment;
 import com.erikriosetiawan.recursivemoviesfinal.fragments.MoviesFragment;
 import com.erikriosetiawan.recursivemoviesfinal.fragments.TvShowsFragment;
 import com.erikriosetiawan.recursivemoviesfinal.widget.UpdateWidgetMovieService;
+import com.erikriosetiawan.recursivemoviesfinal.widget.UpdateWidgetTvShowService;
 
 public class MainActivity extends AppCompatActivity {
 
-    int jobId = 1001;
+    int movieJobId = 100;
+    int tvShowJobId = 101;
     int SCHEDULE_OF_PERIOD = 1000;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         startMovieJob();
+        startTvShowJob();
     }
 
     @Override
@@ -108,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startMovieJob() {
         ComponentName mServiceComponentMovie = new ComponentName(this, UpdateWidgetMovieService.class);
-        JobInfo.Builder builder = new JobInfo.Builder(jobId, mServiceComponentMovie);
+        JobInfo.Builder builder = new JobInfo.Builder(movieJobId, mServiceComponentMovie);
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_NONE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             builder.setMinimumLatency(SCHEDULE_OF_PERIOD);
@@ -117,7 +120,20 @@ public class MainActivity extends AppCompatActivity {
         }
         JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
         jobScheduler.schedule(builder.build());
-        Log.d(MainActivity.class.getSimpleName(), "Job started");
+        Log.d(MainActivity.class.getSimpleName(), "Movie job started");
     }
 
+    private void startTvShowJob() {
+        ComponentName mServiceComponentTvShow = new ComponentName(this, UpdateWidgetTvShowService.class);
+        JobInfo.Builder builder = new JobInfo.Builder(tvShowJobId, mServiceComponentTvShow);
+        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_NONE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            builder.setMinimumLatency(SCHEDULE_OF_PERIOD);
+        } else {
+            builder.setPeriodic(SCHEDULE_OF_PERIOD);
+        }
+        JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        jobScheduler.schedule(builder.build());
+        Log.d(MainActivity.class.getSimpleName(), "TV Show job started");
+    }
 }
