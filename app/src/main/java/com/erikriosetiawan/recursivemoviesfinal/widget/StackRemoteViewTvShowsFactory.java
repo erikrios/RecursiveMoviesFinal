@@ -13,23 +13,23 @@ import android.widget.RemoteViewsService;
 import com.bumptech.glide.Glide;
 import com.erikriosetiawan.recursivemoviesfinal.R;
 import com.erikriosetiawan.recursivemoviesfinal.db.FavoriteDatabaseContract;
-import com.erikriosetiawan.recursivemoviesfinal.db.FavoriteMoviesDatabaseHelper;
-import com.erikriosetiawan.recursivemoviesfinal.models.Movie;
+import com.erikriosetiawan.recursivemoviesfinal.db.FavoriteTvShowsDatabaseHelper;
+import com.erikriosetiawan.recursivemoviesfinal.models.TvShow;
 
 import java.util.ArrayList;
 
-public class StackRemoteViewMoviesFactory implements RemoteViewsService.RemoteViewsFactory {
+public class StackRemoteViewTvShowsFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    private static FavoriteMoviesDatabaseHelper favoriteMoviesDatabaseHelper;
+    private static FavoriteTvShowsDatabaseHelper favoriteTvShowsDatabaseHelper;
     private static SQLiteDatabase database;
     private final Context mContext;
-    private ArrayList<Movie> favoriteMovie = new ArrayList<>();
+    private ArrayList<TvShow> favoriteTvShow = new ArrayList<>();
     private Cursor cursor;
 
-    StackRemoteViewMoviesFactory(Context context) {
+    StackRemoteViewTvShowsFactory(Context context) {
         mContext = context;
-        favoriteMoviesDatabaseHelper = new FavoriteMoviesDatabaseHelper(context);
-        database = favoriteMoviesDatabaseHelper.getWritableDatabase();
+        favoriteTvShowsDatabaseHelper = new FavoriteTvShowsDatabaseHelper(context);
+        database = favoriteTvShowsDatabaseHelper.getWritableDatabase();
     }
 
     @Override
@@ -45,21 +45,21 @@ public class StackRemoteViewMoviesFactory implements RemoteViewsService.RemoteVi
 
         final long identityToken = Binder.clearCallingIdentity();
 
-        cursor = database.rawQuery("SELECT * FROM " + FavoriteDatabaseContract.FavoriteMoviesEntry.TABLE_NAME, null);
+        cursor = database.rawQuery("SELECT * FROM " + FavoriteDatabaseContract.FavoriteTvShowsEntry.TABLE_NAME, null);
         cursor.moveToFirst();
-        Movie movie;
+        TvShow tvShow;
         if (cursor.getCount() > 0) {
             do {
-                movie = new Movie();
-                movie.setId(cursor.getInt(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteMoviesEntry.COLUMN_ID)));
-                movie.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteMoviesEntry.COLUMN_TITLE)));
-                movie.setPosterPath(cursor.getString(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteMoviesEntry.COLUMN_POSTER_PATH)));
-                movie.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteMoviesEntry.COLUMN_OVERVIEW)));
-                movie.setReleaseDate(cursor.getString(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteMoviesEntry.COLUMN_RELEASE_DATE)));
-                movie.setVoteCount(cursor.getInt(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteMoviesEntry.COLUMN_VOTE_COUNT)));
-                movie.setVoteAverage(cursor.getDouble(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteMoviesEntry.COLUMN_VOTE_AVERAGE)));
+                tvShow = new TvShow();
+                tvShow.setId(cursor.getInt(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteTvShowsEntry.COLUMN_ID)));
+                tvShow.setName(cursor.getString(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteTvShowsEntry.COLUMN_TITLE)));
+                tvShow.setPosterPath(cursor.getString(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteTvShowsEntry.COLUMN_POSTER_PATH)));
+                tvShow.setOverview(cursor.getString(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteTvShowsEntry.COLUMN_OVERVIEW)));
+                tvShow.setFirstAirDate(cursor.getString(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteTvShowsEntry.COLUMN_RELEASE_DATE)));
+                tvShow.setVoteCount(cursor.getInt(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteTvShowsEntry.COLUMN_VOTE_COUNT)));
+                tvShow.setVoteAverage(cursor.getDouble(cursor.getColumnIndexOrThrow(FavoriteDatabaseContract.FavoriteTvShowsEntry.COLUMN_VOTE_AVERAGE)));
 
-                favoriteMovie.add(movie);
+                favoriteTvShow.add(tvShow);
                 cursor.moveToNext();
             } while (!(cursor.isAfterLast()));
         }
@@ -75,18 +75,18 @@ public class StackRemoteViewMoviesFactory implements RemoteViewsService.RemoteVi
 
     @Override
     public int getCount() {
-        return favoriteMovie.size();
+        return 0;
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_item);
 
-        if (favoriteMovie.size() > 0) {
+        if (favoriteTvShow.size() > 0) {
             try {
                 Bitmap bitmap = Glide.with(mContext)
                         .asBitmap()
-                        .load("https://image.tmdb.org/t/p/w185" + favoriteMovie.get(position).getPosterPath())
+                        .load("https://image.tmdb.org/t/p/w185" + favoriteTvShow.get(position).getPosterPath())
                         .submit(512, 512)
                         .get();
 
@@ -97,7 +97,7 @@ public class StackRemoteViewMoviesFactory implements RemoteViewsService.RemoteVi
         }
 
         Bundle extras = new Bundle();
-        extras.putInt(FavoriteMovieWidget.EXTRA_ITEM, position);
+        extras.putInt(FavoriteTvShowWidget.EXTRA_ITEM, position);
 
         Intent fillIntent = new Intent();
         fillIntent.putExtras(extras);

@@ -16,4 +16,5 @@
     <string name="add_widget" translatable="false">Add widget</string>
     <string name="empty_text">No Data</string>
     <string name="favorite_movies">Favorite Movies</string>
+    <string name="favorite_tv_shows">Favorite Tv Shows</string>
 </resources>

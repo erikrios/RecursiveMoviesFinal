@@ -13,6 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <receiver android:name=".widget.FavoriteTvShowWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/favorite_tv_show_widget_info" />
+        </receiver>
         <receiver android:name=".widget.FavoriteMovieWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -38,7 +47,6 @@
         <service
             android:name=".widget.StackWidgetMovieService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-
         <service
             android:name=".widget.UpdateWidgetMovieService"
             android:enabled="true"
