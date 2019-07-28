@@ -80,7 +80,7 @@ public class StackRemoteViewMoviesFactory implements RemoteViewsService.RemoteVi
 
     @Override
     public RemoteViews getViewAt(int position) {
-        RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_item);
+        RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_movie_item);
 
         if (favoriteMovie.size() > 0) {
             try {
