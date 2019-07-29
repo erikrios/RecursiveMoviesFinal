@@ -46,8 +46,10 @@ public class SearchActivity extends AppCompatActivity {
 
         if (navigationSelect.equals("Movies")) {
             searchMovie(query);
+            setActionBar(getResources().getString(R.string.movie_search_result));
         } else {
             searchTvShow(query);
+            setActionBar(getResources().getString(R.string.tv_show_search_result));
         }
     }
 
@@ -107,6 +109,12 @@ public class SearchActivity extends AppCompatActivity {
             recyclerViewSearch.setAdapter(mSearchAdapter);
         } else {
             mSearchAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void setActionBar(String title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
         }
     }
 }
