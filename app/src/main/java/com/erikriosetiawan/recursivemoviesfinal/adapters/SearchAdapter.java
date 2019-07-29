@@ -2,6 +2,7 @@ package com.erikriosetiawan.recursivemoviesfinal.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.erikriosetiawan.recursivemoviesfinal.DetailsActivity;
 import com.erikriosetiawan.recursivemoviesfinal.R;
 import com.erikriosetiawan.recursivemoviesfinal.models.Movie;
 import com.erikriosetiawan.recursivemoviesfinal.models.TvShow;
@@ -66,11 +68,34 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     .into(viewHolder.imgPoster);
             viewHolder.tvTitle.setText(getListTvShows().get(i).getName());
             viewHolder.tvVoteAverage.setText(Double.toString(getListTvShows().get(i).getVoteAverage()));
+
+            viewHolder.itemView.setOnClickListener(new CustomOnItemClickListener(i, new CustomOnItemClickListener.OnItemClickCallback() {
+                @Override
+                public void onItemClicked(View view, int position) {
+                    TvShow tvShow = getListTvShows().get(position);
+                    Intent tvShowDataIntent = new Intent(context, DetailsActivity.class);
+                    tvShowDataIntent.putExtra(DetailsActivity.TV_SHOW_KEY, tvShow);
+                    tvShowDataIntent.putExtra(DetailsActivity.KEY, DetailsActivity.TV_SHOW_KEY);
+                    context.startActivity(tvShowDataIntent);
+                }
+            }));
+
         } else {
             Picasso.get().load("https://image.tmdb.org/t/p/w185" + getListMovies().get(i).getPosterPath())
                     .into(viewHolder.imgPoster);
             viewHolder.tvTitle.setText(getListMovies().get(i).getTitle());
             viewHolder.tvVoteAverage.setText(Double.toString(getListMovies().get(i).getVoteAverage()));
+
+            viewHolder.itemView.setOnClickListener(new CustomOnItemClickListener(i, new CustomOnItemClickListener.OnItemClickCallback() {
+                @Override
+                public void onItemClicked(View view, int position) {
+                    Movie movie = getListMovies().get(position);
+                    Intent movieDataIntent = new Intent(context, DetailsActivity.class);
+                    movieDataIntent.putExtra(DetailsActivity.MOVIE_KEY, movie);
+                    movieDataIntent.putExtra(DetailsActivity.KEY, DetailsActivity.MOVIE_KEY);
+                    context.startActivity(movieDataIntent);
+                }
+            }));
         }
     }
 
