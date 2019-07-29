@@ -61,13 +61,13 @@ public class AlarmReceiver extends BroadcastReceiver {
         int notifId = type.equalsIgnoreCase(TYPE_RELEASE) ? ID_RELEASE : ID_DAILY;
 
         if (notifId == ID_RELEASE) {
-            releaseMovie(context, notifId);
+            releaseMovie(context);
         } else {
             showAlarmNotification(context, title, message, notifId);
         }
     }
 
-    private void releaseMovie(final Context context, final int notifId) {
+    private void releaseMovie(final Context context) {
         AsyncHttpClient client = new AsyncHttpClient();
         String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&language=en-US";
 
