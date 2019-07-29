@@ -6,14 +6,10 @@ import android.arch.lifecycle.ViewModel;
 
 import com.erikriosetiawan.recursivemoviesfinal.BuildConfig;
 import com.erikriosetiawan.recursivemoviesfinal.apiservices.MovieRepository;
-import com.erikriosetiawan.recursivemoviesfinal.models.Movie;
 import com.erikriosetiawan.recursivemoviesfinal.models.MovieResult;
-
-import java.util.ArrayList;
 
 public class MovieViewModel extends ViewModel {
 
-    private ArrayList<Movie> movieArray = new ArrayList<>();
     private MutableLiveData<MovieResult> mutableLiveDataMovie;
     private MutableLiveData<MovieResult> mutableLiveDataMovieSearch;
     private MutableLiveData<Boolean> isFetching = new MutableLiveData<>();

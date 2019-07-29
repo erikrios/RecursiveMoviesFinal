@@ -2,10 +2,7 @@ package com.erikriosetiawan.recursivemoviesfinal.apiservices;
 
 import android.arch.lifecycle.MutableLiveData;
 
-import com.erikriosetiawan.recursivemoviesfinal.models.Movie;
 import com.erikriosetiawan.recursivemoviesfinal.models.MovieResult;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -13,7 +10,6 @@ import retrofit2.Response;
 
 public class MovieRepository {
 
-    private ArrayList<Movie> dataArrayMovie = new ArrayList<>();
     private MutableLiveData<MovieResult> dataMovie = new MutableLiveData<>();
     private MutableLiveData<MovieResult> dataSearchMovie = new MutableLiveData<>();
     private static MovieRepository movieRepository;
