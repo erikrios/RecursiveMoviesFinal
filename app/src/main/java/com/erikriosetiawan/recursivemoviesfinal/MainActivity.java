@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     int SCHEDULE_OF_PERIOD = 1000;
 
     private String navigationSelect;
+
+    static final int SETTING_REQUEST_CODE = 1;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -128,6 +131,9 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_change_setting) {
             Intent changeSettingIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
             startActivity(changeSettingIntent);
+        } else if (item.getItemId() == R.id.action_setting) {
+            Intent settingIntent = new Intent(MainActivity.this, SettingActivity.class);
+            startActivityForResult(settingIntent, SETTING_REQUEST_CODE);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -136,6 +142,11 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(title);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void startMovieJob() {

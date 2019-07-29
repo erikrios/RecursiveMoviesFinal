@@ -23,4 +23,8 @@
     <string name="movie_search_result">Movie Search Result</string>
     <string name="tv_show_search_result">Tv Show Search Result</string>
     <string name="setting">Setting</string>
+    <string name="release_reminder">Release Reminder</string>
+    <string name="release_reminder_hint">Reminder showing the movie that released \ntoday</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="daily_reminder_hint">Reminder for return to app</string>
 </resources>
