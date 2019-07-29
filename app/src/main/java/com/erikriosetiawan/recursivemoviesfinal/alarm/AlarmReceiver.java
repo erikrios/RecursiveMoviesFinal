@@ -1,5 +1,6 @@
 package com.erikriosetiawan.recursivemoviesfinal.alarm;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -71,7 +72,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&language=en-US";
 
         Date date = Calendar.getInstance().getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         final String dateNow = dateFormat.format(date);
 
         client.get(url, new AsyncHttpResponseHandler() {
@@ -173,14 +174,5 @@ public class AlarmReceiver extends BroadcastReceiver {
         } catch (ParseException e) {
             return true;
         }
-    }
-
-    public boolean isWorking(Context context, String type) {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmReceiver.class);
-        int requestCode = type.equalsIgnoreCase(TYPE_RELEASE) ? ID_RELEASE : ID_DAILY;
-        boolean isWork = (PendingIntent.getBroadcast(context, requestCode, intent, 0) != null);
-
-        return isWork;
     }
 }
