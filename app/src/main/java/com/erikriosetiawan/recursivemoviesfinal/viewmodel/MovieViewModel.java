@@ -6,16 +6,37 @@ import android.arch.lifecycle.ViewModel;
 
 import com.erikriosetiawan.recursivemoviesfinal.BuildConfig;
 import com.erikriosetiawan.recursivemoviesfinal.apiservices.MovieRepository;
+import com.erikriosetiawan.recursivemoviesfinal.models.Movie;
 import com.erikriosetiawan.recursivemoviesfinal.models.MovieResult;
+
+import java.util.ArrayList;
 
 public class MovieViewModel extends ViewModel {
 
+    private ArrayList<Movie> movieArray = new ArrayList<>();
     private MutableLiveData<MovieResult> mutableLiveDataMovie;
+    private MutableLiveData<MovieResult> mutableLiveDataMovieSearch;
     private MutableLiveData<Boolean> isFetching = new MutableLiveData<>();
     private static final String API_KEY = BuildConfig.API_KEY;
 
     public LiveData<MovieResult> getMovies() {
+        setIsFetching(true);
+        if (mutableLiveDataMovie != null) {
+            return mutableLiveDataMovie;
+        }
+        MovieRepository movieRepository = MovieRepository.getInstance();
+        mutableLiveDataMovie = movieRepository.getMovie(API_KEY, "en-US");
         return mutableLiveDataMovie;
+    }
+
+    public LiveData<MovieResult> getSearchMovies(String query) {
+        setIsFetching(true);
+        if (mutableLiveDataMovie != null) {
+            return mutableLiveDataMovieSearch;
+        }
+        MovieRepository movieRepository = MovieRepository.getInstance();
+        mutableLiveDataMovieSearch = movieRepository.getSearchMovie(API_KEY, "en-US", query);
+        return mutableLiveDataMovieSearch;
     }
 
     public LiveData<Boolean> getIsFetching() {
@@ -37,6 +58,12 @@ public class MovieViewModel extends ViewModel {
 
     public void close() {
         if (mutableLiveDataMovie.getValue() != null) {
+            setIsFetching(false);
+        }
+    }
+
+    public void closeSearch() {
+        if (mutableLiveDataMovieSearch.getValue() != null) {
             setIsFetching(false);
         }
     }

@@ -2,7 +2,10 @@ package com.erikriosetiawan.recursivemoviesfinal.apiservices;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import com.erikriosetiawan.recursivemoviesfinal.models.Movie;
 import com.erikriosetiawan.recursivemoviesfinal.models.MovieResult;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -10,11 +13,13 @@ import retrofit2.Response;
 
 public class MovieRepository {
 
-    MutableLiveData<MovieResult> dataMovie = new MutableLiveData<>();
+    private ArrayList<Movie> dataArrayMovie = new ArrayList<>();
+    private MutableLiveData<MovieResult> dataMovie = new MutableLiveData<>();
+    private MutableLiveData<MovieResult> dataSearchMovie = new MutableLiveData<>();
     private static MovieRepository movieRepository;
     private Api movieApi;
 
-    public MovieRepository() {
+    private MovieRepository() {
         movieApi = RetrofitServices.createService(Api.class);
     }
 
@@ -25,8 +30,12 @@ public class MovieRepository {
         return movieRepository;
     }
 
-    public void setDataMovie(MovieResult dataMovie) {
+    private void setDataMovie(MovieResult dataMovie) {
         this.dataMovie.setValue(dataMovie);
+    }
+
+    private void setDataSearchMovie(MovieResult dataMovie) {
+        this.dataSearchMovie.setValue(dataMovie);
     }
 
     public MutableLiveData<MovieResult> getMovie(String apiKey, String language) {
@@ -44,5 +53,22 @@ public class MovieRepository {
             }
         });
         return dataMovie;
+    }
+
+    public MutableLiveData<MovieResult> getSearchMovie(String apiKey, String language, String query) {
+        movieApi.getSearchMovieList(apiKey, language, query).enqueue(new Callback<MovieResult>() {
+            @Override
+            public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
+                if (response.isSuccessful()) {
+                    setDataSearchMovie(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieResult> call, Throwable t) {
+
+            }
+        });
+        return dataSearchMovie;
     }
 }

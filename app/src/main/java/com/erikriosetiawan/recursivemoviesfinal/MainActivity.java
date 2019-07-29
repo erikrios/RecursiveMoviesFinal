@@ -1,5 +1,6 @@
 package com.erikriosetiawan.recursivemoviesfinal;
 
+import android.app.SearchManager;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
@@ -14,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     int movieJobId = 100;
     int tvShowJobId = 101;
     int SCHEDULE_OF_PERIOD = 1000;
+
+    private String navigationSelect;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     fragmentTransaction.commit();
                     setActionBarTitle(getResources().getString(R.string.nav_movies));
+                    navigationSelect = "Movies";
                     return true;
 
                 case R.id.navigation_tv_shows:
@@ -57,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     fragmentTransaction.commit();
                     setActionBarTitle(getResources().getString(R.string.nav_tv_shows));
+                    navigationSelect = "TV Shows";
                     return true;
 
                 case R.id.navigation_favorite:
@@ -91,6 +97,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+        if (searchManager != null) {
+            SearchView searchView = (SearchView) (menu.findItem(R.id.action_search)).getActionView();
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setQueryHint("Ex: Superman");
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Intent searchIntent = new Intent(getApplicationContext(), SearchActivity.class);
+                    searchIntent.putExtra("QUERY", query);
+                    searchIntent.putExtra("NAVIGATION_SELECT", navigationSelect);
+                    startActivity(searchIntent);
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return true;
+                }
+            });
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -99,10 +128,6 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_change_setting) {
             Intent changeSettingIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
             startActivity(changeSettingIntent);
-        } else if (item.getItemId() == R.id.action_search_movie) {
-
-        } else if (item.getItemId() == R.id.action_search_tv_show) {
-
         }
         return super.onOptionsItemSelected(item);
     }
