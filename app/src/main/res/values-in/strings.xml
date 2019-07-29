@@ -20,4 +20,5 @@
     <string name="search_view_query_hint">Contoh : Naruto</string>
     <string name="movie_search_result">Hasil Pencarian Film</string>
     <string name="tv_show_search_result">Hasil Pencarian Acara TV</string>
+    <string name="setting">Pengaturan</string>
 </resources>
