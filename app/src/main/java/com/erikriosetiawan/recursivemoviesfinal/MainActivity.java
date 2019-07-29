@@ -160,13 +160,13 @@ public class MainActivity extends AppCompatActivity {
             daily = sharedPreferences.getBoolean("Daily", false);
 
             if (release) {
-                alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_RELEASE, "20.50", "Release Alarm", AlarmReceiver.ID_RELEASE);
+                alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_RELEASE, "21.14", "Release Alarm", AlarmReceiver.ID_RELEASE);
             } else {
                 alarmReceiver.cancelAlarm(this, AlarmReceiver.TYPE_RELEASE);
             }
 
             if (daily) {
-                alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_DAILY, "20.51", getString(R.string.daily_reminder_message), AlarmReceiver.ID_DAILY);
+                alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_DAILY, "21.15", getString(R.string.daily_reminder_message), AlarmReceiver.ID_DAILY);
             } else {
                 alarmReceiver.cancelAlarm(this, AlarmReceiver.TYPE_DAILY);
             }
