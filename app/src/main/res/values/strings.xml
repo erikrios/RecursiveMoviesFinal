@@ -27,4 +27,5 @@
     <string name="release_reminder_hint">Reminder showing the movie that released \ntoday</string>
     <string name="daily_reminder">Daily Reminder</string>
     <string name="daily_reminder_hint">Reminder for return to app</string>
+    <string name="daily_reminder_message">Recursive Movies Missing you</string>
 </resources>

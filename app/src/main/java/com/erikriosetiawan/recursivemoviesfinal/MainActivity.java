@@ -6,6 +6,7 @@ import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.erikriosetiawan.recursivemoviesfinal.alarm.AlarmReceiver;
 import com.erikriosetiawan.recursivemoviesfinal.fragments.FavoritesFragment;
 import com.erikriosetiawan.recursivemoviesfinal.fragments.MoviesFragment;
 import com.erikriosetiawan.recursivemoviesfinal.fragments.TvShowsFragment;
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private String navigationSelect;
 
     static final int SETTING_REQUEST_CODE = 1;
+
+    private AlarmReceiver alarmReceiver;
+    private boolean daily, release;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -95,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
         startMovieJob();
         startTvShowJob();
+
+        alarmReceiver = new AlarmReceiver();
     }
 
     @Override
@@ -147,7 +154,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SETTING_REQUEST_CODE) {
+            SharedPreferences sharedPreferences = getSharedPreferences("com.erikriosetiawan.recursivemoviesfinal", MODE_PRIVATE);
+            release = sharedPreferences.getBoolean("Release", false);
+            daily = sharedPreferences.getBoolean("Daily", false);
 
+            if (release) {
+                alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_RELEASE, "21.00", "Release Alarm", AlarmReceiver.ID_RELEASE);
+            } else {
+                alarmReceiver.cancelAlarm(this, AlarmReceiver.TYPE_RELEASE);
+            }
+
+            if (daily) {
+                alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_DAILY, "21.00", getString(R.string.daily_reminder_message), AlarmReceiver.ID_DAILY);
+            } else {
+                alarmReceiver.cancelAlarm(this, AlarmReceiver.TYPE_DAILY);
+            }
+        }
     }
 
     private void startMovieJob() {

@@ -25,4 +25,5 @@
     <string name="release_reminder_hint">Pengingat film yang rilis \nhari ini</string>
     <string name="daily_reminder">Pengingat Harian</string>
     <string name="daily_reminder_hint">Pengingat untuk kembali ke aplikasi</string>
+    <string name="daily_reminder_message">Recursive Movies merindukan kamu</string>
 </resources>
