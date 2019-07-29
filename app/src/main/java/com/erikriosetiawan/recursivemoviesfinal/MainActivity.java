@@ -99,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_change_setting) {
             Intent changeSettingIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
             startActivity(changeSettingIntent);
+        } else if (item.getItemId() == R.id.action_search_movie) {
+
+        } else if (item.getItemId() == R.id.action_search_tv_show) {
+
         }
         return super.onOptionsItemSelected(item);
     }

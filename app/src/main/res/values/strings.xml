@@ -17,4 +17,6 @@
     <string name="empty_text">No Data</string>
     <string name="favorite_movies">Favorite Movies</string>
     <string name="favorite_tv_shows">Favorite Tv Shows</string>
+    <string name="search_movie">Search Movie</string>
+    <string name="search_tv_show">Search TV Show</string>
 </resources>

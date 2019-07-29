@@ -15,4 +15,6 @@
     <string name="empty_text">Tidak Ada Data</string>
     <string name="favorite_movies">Film Favorit</string>
     <string name="favorite_tv_shows">Acara TV Favorite</string>
+    <string name="search_movie">Pencarian Film</string>
+    <string name="search_tv_show">Pencarian Acara TV</string>
 </resources>
