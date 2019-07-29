@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         if (searchManager != null) {
             SearchView searchView = (SearchView) (menu.findItem(R.id.action_search)).getActionView();
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            searchView.setQueryHint("Ex: Superman");
+            searchView.setQueryHint(getResources().getString(R.string.search_view_query_hint));
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {

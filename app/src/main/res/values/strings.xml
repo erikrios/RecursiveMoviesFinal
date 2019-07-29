@@ -19,4 +19,5 @@
     <string name="favorite_tv_shows">Favorite Tv Shows</string>
     <string name="search_movie">Search Movie</string>
     <string name="search_tv_show">Search TV Show</string>
+    <string name="search_view_query_hint">Example : Naruto</string>
 </resources>

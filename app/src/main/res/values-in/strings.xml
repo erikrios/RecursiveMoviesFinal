@@ -17,4 +17,5 @@
     <string name="favorite_tv_shows">Acara TV Favorite</string>
     <string name="search_movie">Pencarian Film</string>
     <string name="search_tv_show">Pencarian Acara TV</string>
+    <string name="search_view_query_hint">Contoh : Naruto</string>
 </resources>

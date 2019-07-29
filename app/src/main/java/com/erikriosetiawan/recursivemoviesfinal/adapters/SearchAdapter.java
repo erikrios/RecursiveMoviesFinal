@@ -103,7 +103,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             listMovies.clear();
         } else {
             range = listTvShows.size();
-            listMovies.clear();
+            listTvShows.clear();
         }
         notifyItemRangeRemoved(0, range);
     }
