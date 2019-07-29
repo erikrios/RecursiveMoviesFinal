@@ -38,8 +38,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     private static final String API_KEY = BuildConfig.API_KEY;
 
-    public static final String TYPE_RELEASE = "ReleaseReminder";
-    public static final String TYPE_DAILY = "DailyReminder";
+    public static final String TYPE_RELEASE = "Release Reminder";
+    public static final String TYPE_DAILY = "Daily Reminder";
     public static final String EXTRA_MESSAGE = "message";
     public static final String EXTRA_TYPE = "type";
 
