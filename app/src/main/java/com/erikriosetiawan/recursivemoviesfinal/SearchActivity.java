@@ -15,6 +15,7 @@ import com.erikriosetiawan.recursivemoviesfinal.adapters.SearchAdapter;
 import com.erikriosetiawan.recursivemoviesfinal.models.Movie;
 import com.erikriosetiawan.recursivemoviesfinal.models.MovieResult;
 import com.erikriosetiawan.recursivemoviesfinal.models.TvShow;
+import com.erikriosetiawan.recursivemoviesfinal.models.TvShowResult;
 import com.erikriosetiawan.recursivemoviesfinal.viewmodel.MovieViewModel;
 import com.erikriosetiawan.recursivemoviesfinal.viewmodel.TvShowViewModel;
 
@@ -24,7 +25,7 @@ public class SearchActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewSearch;
     private MovieViewModel mMovieViewModel;
-    private TvShowViewModel tvShowViewModel;
+    private TvShowViewModel mTvShowViewModel;
 
     ArrayList<Movie> movies = new ArrayList<>();
     ArrayList<TvShow> tvShows = new ArrayList<>();
@@ -46,7 +47,7 @@ public class SearchActivity extends AppCompatActivity {
         if (navigationSelect.equals("Movies")) {
             searchMovie(query);
         } else {
-
+            searchTvShow(query);
         }
     }
 
@@ -78,6 +79,30 @@ public class SearchActivity extends AppCompatActivity {
         if (mSearchAdapter == null) {
             mSearchAdapter = new SearchAdapter(this);
             mSearchAdapter.setListMovies(movies);
+            recyclerViewSearch.setLayoutManager(new GridLayoutManager(this, 2));
+            recyclerViewSearch.setAdapter(mSearchAdapter);
+        } else {
+            mSearchAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void searchTvShow(String query) {
+        mTvShowViewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
+        mTvShowViewModel.getSearchTvShows(query).observe(this, new Observer<TvShowResult>() {
+            @Override
+            public void onChanged(@Nullable TvShowResult tvShowResult) {
+                assert tvShowResult != null;
+                ArrayList<TvShow> resultTvShow = tvShowResult.getResults();
+                tvShows.clear();
+                tvShows.addAll(resultTvShow);
+                mSearchAdapter.notifyDataSetChanged();
+                mTvShowViewModel.closeSearch();
+            }
+        });
+
+        if (mSearchAdapter == null) {
+            mSearchAdapter = new SearchAdapter(this);
+            mSearchAdapter.setListTvShows(tvShows);
             recyclerViewSearch.setLayoutManager(new GridLayoutManager(this, 2));
             recyclerViewSearch.setAdapter(mSearchAdapter);
         } else {

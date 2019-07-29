@@ -43,7 +43,7 @@ public class MovieViewModel extends ViewModel {
         return isFetching;
     }
 
-    public void setIsFetching(boolean isFetching) {
+    private void setIsFetching(boolean isFetching) {
         this.isFetching.postValue(isFetching);
     }
 

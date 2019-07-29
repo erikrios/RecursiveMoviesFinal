@@ -22,7 +22,7 @@ public interface Api {
                                          @Query("query") String query);
 
     @GET("search/tv")
-    Call<TvShowResult> getSearchSeriesList(@Query("api_key") String apiKey,
+    Call<TvShowResult> getSearchTvShowList(@Query("api_key") String apiKey,
                                            @Query("language") String language,
                                            @Query("query") String query);
 }
