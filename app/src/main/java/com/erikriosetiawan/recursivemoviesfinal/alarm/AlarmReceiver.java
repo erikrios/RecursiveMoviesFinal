@@ -68,12 +68,15 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     private void releaseMovie(final Context context) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&language=en-US";
 
         Date date = Calendar.getInstance().getTime();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final String dateRelease = dateFormat.format(date);
         final String dateNow = dateFormat.format(date);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&primary_release_date.gte=" + dateRelease + "&primary_release_date.lte=" + dateRelease;
+
 
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
@@ -88,6 +91,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
                         if (releaseDate.equals(dateNow)) {
                             showAlarmNotification(context, movie.getString("title"), movie.getString("title") + " is coming!", movie.getInt("id"));
+                            Log.d("Sukses", movie.getString("title"));
                         }
                     }
                 } catch (Exception e) {
