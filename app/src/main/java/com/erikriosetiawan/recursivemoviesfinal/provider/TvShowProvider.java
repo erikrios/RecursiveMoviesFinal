@@ -15,33 +15,33 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.erikriosetiawan.recursivemoviesfinal.db.FavoriteDatabaseContract;
-import com.erikriosetiawan.recursivemoviesfinal.db.FavoriteMoviesDatabaseHelper;
+import com.erikriosetiawan.recursivemoviesfinal.db.FavoriteTvShowsDatabaseHelper;
 
 import java.util.HashMap;
 import java.util.Objects;
 
-import static com.erikriosetiawan.recursivemoviesfinal.db.FavoriteDatabaseContract.FavoriteMoviesEntry.*;
+import static com.erikriosetiawan.recursivemoviesfinal.db.FavoriteDatabaseContract.FavoriteTvShowsEntry.*;
 
-public class MovieProvider extends ContentProvider {
+public class TvShowProvider extends ContentProvider {
 
-    static final String PROVIDER_NAME = "com.erikriosetiawan.recursivemoviesfinal.MoviesProvider";
+    static final String PROVIDER_NAME = "com.erikriosetiawan.recursivemoviesfinal.TvShowsProvider";
     static final String URL = "content://" + PROVIDER_NAME + "/" + TABLE_NAME;
     static final Uri CONTENT_URI = Uri.parse(URL);
 
-    static final String _ID = FavoriteDatabaseContract.FavoriteMoviesEntry._ID;
+    static final String _ID = FavoriteDatabaseContract.FavoriteTvShowsEntry._ID;
     static final String TITLE = COLUMN_TITLE;
 
-    private static HashMap<String, String> MOVIES_PROJECTION_MAP = new HashMap<>();
+    private HashMap<String, String> TV_SHOWS_PROJECTION_MAP = new HashMap<>();
 
-    static final int MOVIES = 1;
-    static final int MOVIE_ID = 2;
+    static final int TV_SHOWS = 1;
+    static final int TV_SHOW_ID = 2;
 
     static final UriMatcher uriMatcher;
 
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI(PROVIDER_NAME, TABLE_NAME, MOVIES);
-        uriMatcher.addURI(PROVIDER_NAME, TABLE_NAME + "/#", MOVIE_ID);
+        uriMatcher.addURI(PROVIDER_NAME, TABLE_NAME, TV_SHOWS);
+        uriMatcher.addURI(PROVIDER_NAME, TABLE_NAME + "/#", TV_SHOW_ID);
     }
 
     private SQLiteDatabase database;
@@ -49,22 +49,22 @@ public class MovieProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         Context context = getContext();
-        FavoriteMoviesDatabaseHelper favoriteMoviesDatabaseHelper = new FavoriteMoviesDatabaseHelper(context);
-        database = favoriteMoviesDatabaseHelper.getWritableDatabase();
+        FavoriteTvShowsDatabaseHelper favoriteTvShowsDatabaseHelper = new FavoriteTvShowsDatabaseHelper(context);
+        database = favoriteTvShowsDatabaseHelper.getWritableDatabase();
         return database != null;
     }
 
-
+    @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
         queryBuilder.setTables(TABLE_NAME);
 
         switch (uriMatcher.match(uri)) {
-            case MOVIES:
-                queryBuilder.setProjectionMap(MOVIES_PROJECTION_MAP);
+            case TV_SHOWS:
+                queryBuilder.setProjectionMap(TV_SHOWS_PROJECTION_MAP);
                 break;
-            case MOVIE_ID:
+            case TV_SHOW_ID:
                 queryBuilder.appendWhere(_ID + "=" + uri.getPathSegments().get(1));
                 break;
             default:
@@ -82,9 +82,9 @@ public class MovieProvider extends ContentProvider {
     @Override
     public String getType(@NonNull Uri uri) {
         switch (uriMatcher.match(uri)) {
-            case MOVIES:
+            case TV_SHOWS:
                 return "vnd.android.cursor.dir/vnd.example" + "." + TABLE_NAME;
-            case MOVIE_ID:
+            case TV_SHOW_ID:
                 return "vnd.android.cursor.item/vnd.example" + "." + TABLE_NAME;
             default:
                 throw new IllegalArgumentException("Unsupported URI: " + uri);
@@ -107,15 +107,15 @@ public class MovieProvider extends ContentProvider {
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
         int count;
         switch (uriMatcher.match(uri)) {
-            case MOVIES:
+            case TV_SHOWS:
                 count = database.delete(TABLE_NAME, selection, selectionArgs);
                 break;
-            case MOVIE_ID:
+            case TV_SHOW_ID:
                 String id = uri.getPathSegments().get(1);
                 count = database.delete(TABLE_NAME, _ID + " = " + id + (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : ""), selectionArgs);
                 break;
             default:
-                throw new IllegalArgumentException("Unknows URI " + uri);
+                throw new IllegalArgumentException("Unknowns URI " + uri);
         }
 
         Objects.requireNonNull(getContext()).getContentResolver().notifyChange(uri, null);
@@ -126,10 +126,10 @@ public class MovieProvider extends ContentProvider {
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
         int count;
         switch (uriMatcher.match(uri)) {
-            case MOVIES:
+            case TV_SHOWS:
                 count = database.update(TABLE_NAME, values, selection, selectionArgs);
                 break;
-            case MOVIE_ID:
+            case TV_SHOW_ID:
                 count = database.update(TABLE_NAME, values, _ID + " = " + uri.getPathSegments().get(1) + (!TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : ""), selectionArgs);
                 break;
             default:
